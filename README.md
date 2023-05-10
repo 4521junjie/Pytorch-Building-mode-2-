@@ -60,13 +60,13 @@ class Block(nn.Module):
         self.relu2 = nn.ReLU()
 
     def forward(self, x):
-        x = self.conv1(x) # [bs, out_dim, h/stride, w/stride] 卷积，提取特征，改变通道数和分辨率
-        x = self.bn1(x) # [bs, out_dim, h/stride, w/stride] 批归一化，加速收敛，防止过拟合
-        x = self.relu1(x) # [bs, out_dim, h/stride, w/stride] 激活函数，增加非线性
-        x = self.conv2(x) # [bs, out_dim, h/stride, w/stride] 卷积，提取特征，保持通道数和分辨率
-        x = self.bn2(x) # [bs, out_dim, h/stride, w/stride] 批归一化，加速收敛，防止过拟合
-        x = self.relu2(x) # [bs, out_dim, h/stride, w/stride] 激活函数，增加非线性
-        return x          #  forward 函数中定义数据的前向传播
+        x = self.conv1(x)                 # [bs, out_dim, h/stride, w/stride] 卷积，提取特征，改变通道数和分辨率
+        x = self.bn1(x)                   # [bs, out_dim, h/stride, w/stride] 批归一化，加速收敛，防止过拟合
+        x = self.relu1(x)                 # [bs, out_dim, h/stride, w/stride] 激活函数，增加非线性
+        x = self.conv2(x)                 # [bs, out_dim, h/stride, w/stride] 卷积，提取特征，保持通道数和分辨率
+        x = self.bn2(x)                   # [bs, out_dim, h/stride, w/stride] 批归一化，加速收敛，防止过拟合
+        x = self.relu2(x)                 # [bs, out_dim, h/stride, w/stride] 激活函数，增加非线性
+        return x                          #  forward 函数中定义数据的前向传播
 
 
 class ResNet32(nn.Module):            # 可以在模型类中定义其他自定义函数
@@ -96,16 +96,16 @@ class ResNet32(nn.Module):            # 可以在模型类中定义其他自定�
         return nn.Sequential(*layer_list)
 
     def forward(self, x):
-        x = self.conv1(x)  # [bs, 64, 56, 56] 特征提取过程
-        x = self.maxpooling(x)  # [bs, 64, 28, 28]池化，降低分辨率和计算量
-        x = self.layer1(x) # [bs , 64 , 28 , 28 ]残差层，提取特征，保持通道数和分辨率
-        x = self.layer2(x) # [bs , 128 , 14 , 14 ] 残差层，提取特征，改变通道数和分辨率
-        x = self.layer3(x) # [bs , 256 , 7 , 7 ] 残差层，提取特征，改变通道数和分辨率
-        x = self.layer4(x) # [bs , 512 , 4 , 4 ] 残差层，提取特征，改变通道数和分辨率
-        x = self.avgpooling(x) # [bs , 512 , 2 , 2 ] 平均池化，降低分辨率和计算量
-        x = x.view(x.shape[0], -1) # [bs , 2048 ] 展平张量，准备分类
-        x = self.classifier(x) # [bs , num_classes ] 全连接层，输出类别概率
-        output = F.softmax(x) # [bs , num_classes ] softmax函数，归一化概率
+        x = self.conv1(x)                 # [bs, 64, 56, 56] 特征提取过程
+        x = self.maxpooling(x)            # [bs, 64, 28, 28]池化，降低分辨率和计算量
+        x = self.layer1(x)                # [bs , 64 , 28 , 28 ]残差层，提取特征，保持通道数和分辨率
+        x = self.layer2(x)                # [bs , 128 , 14 , 14 ] 残差层，提取特征，改变通道数和分辨率
+        x = self.layer3(x)                # [bs , 256 , 7 , 7 ] 残差层，提取特征，改变通道数和分辨率
+        x = self.layer4(x)                # [bs , 512 , 4 , 4 ] 残差层，提取特征，改变通道数和分辨率
+        x = self.avgpooling(x)            # [bs , 512 , 2 , 2 ] 平均池化，降低分辨率和计算量
+        x = x.view(x.shape[0], -1)        # [bs , 2048 ] 展平张量，准备分类
+        x = self.classifier(x)            # [bs , num_classes ] 全连接层，输出类别概率
+        output = F.softmax(x)             # [bs , num_classes ] softmax函数，归一化概率
 
         return output
 
