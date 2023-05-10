@@ -124,6 +124,7 @@ if __name__=='__main__':
 ```
 
 ### 3、🙄补充
+https://zhuanlan.zhihu.com/p/79378841
 
 详细解释Resnet模型中forward方法
 
