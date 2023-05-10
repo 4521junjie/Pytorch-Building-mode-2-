@@ -97,7 +97,7 @@ class ResNet32(nn.Module):            # 可以在模型类中定义其他自定�
 
     def forward(self, x):
         x = self.conv1(x)                 # [bs, 64, 56, 56] 特征提取过程
-        x = self.maxpooling(x)            # [bs, 64, 28, 28]池化，降低分辨率和计算量
+        x = self.maxpooling(x)            # [bs, 64, 28, 28]池化，降低分辨率和计算量，提取并强化重要的特征
         x = self.layer1(x)                # [bs , 64 , 28 , 28 ]残差层，提取特征，保持通道数和分辨率
         x = self.layer2(x)                # [bs , 128 , 14 , 14 ] 残差层，提取特征，改变通道数和分辨率
         x = self.layer3(x)                # [bs , 256 , 7 , 7 ] 残差层，提取特征，改变通道数和分辨率
