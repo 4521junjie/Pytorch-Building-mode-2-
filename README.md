@@ -1,7 +1,7 @@
 # Pytorch-Building-mode-2-
 
 # 😃Pytorch搭建模型模板的语法问题
-代码如下:
+The code is as follows.:
 ``` python
 import torch
 import torch.nn as nn
