@@ -15,10 +15,12 @@ class xxxNet(nn.Module):
  ```
 
 1、在第6行处，要在__init__方法中调用父类的__init__方法,不然无法继承父类的属性和方法，这会影响到模型的初始化和训练。
+  At line 6, it is necessary to call the __init__ method of the parent class in the __init__ method, otherwise the properties and methods of the parent class cannot be inherited, which will affect the initialization and training of the model.
 
 2、在forward方法的参数列表中加上self， 若不加上self参数，forward方法就无法访问模型的实例属性和方法，模型无法运行。
+Add "self" to the parameter list of the forward method. Without the "self" parameter, the forward method cannot access the instance properties and methods of the model, and the model cannot run.
 
-修改后的模板如下:
+The modified template is as follows:
 ``` python
 # 引入相关库
 import torch
@@ -34,13 +36,17 @@ class ResidualBlock(nn.Module):
 
 
 # 🌏ResNet32模型
-## 1、模型认知总结
-esNet32模型是一个深度残差网络，由32个卷积层组成，通过重复模块的方式构造，该模块由两个3x3卷积层和一个跨度为2的降采样层组成。
+## 1、模型认知总结 Summary of Model Cognition
+ResNet32模型是一个深度残差网络，由32个卷积层组成，通过重复模块的方式构造，该模块由两个3x3卷积层和一个跨度为2的降采样层组成。
+The ResNet32 model is a deep residual network consisting of 32 convolutional layers constructed by repeating modules. Each module is composed of two 3x3 convolutional layers and a downsampling layer with a stride of 2.
 
 通过残差连接来减缓梯度消失问题；残差连接使将原始输入与所有进一步的层的输出相加，从而产生更多的参数更新。
+Residual connections are used to alleviate the problem of vanishing gradients. Residual connections add the original input to the output of all subsequent layers, resulting in more parameter updates.
 
 应用：在CIFAR-10数据集上，ResNet32模型的测试准确度可以高达90％左右。
-## 2、ResNet32模型代码以及局部注释
+Application: On the CIFAR-10 dataset, the testing accuracy of the ResNet32 model can reach around 90%.
+
+## 2、ResNet32 model code with local comments
 ``` python 
 # 引入相关库
 import torch
@@ -117,7 +123,25 @@ if __name__=='__main__':
     print(out.shape) # 打印输出张量的形状：[8 , num_classes ]
 ```
 
+### 3、🙄补充
 
+详细解释Resnet模型中forward方法
+
+ResNet（Residual Network）是深度学习领域的一个经典的残差网络模型。在 ResNet 中，前向传播方法主要由多个残差块组成，其中的每个残差块通过跨层连接可以将前一层的输入直接加到当前层的输出中。这样做的目的是为了避免深度神经网络中可能出现的梯度消失问题，从而能够训练更深的网络。
+
+由于 ResNet 中的残差块非常特殊，因此需要对其前向传播的具体实现进行详细解释。在下面的讨论中，我们将以 ResNet-50 为例，介绍其前向传播的过程。
+
+首先，我们需要将输入图像传递给 ResNet-50 的第一层卷积。这层卷积主要是为了将图像转换成一组特征图，从而可以传递给下一层处理。这一步操作可以看作是对输入图像进行初步的特征提取。
+
+接着，ResNet-50 的前向传播方法主要由四个阶段组成，每个阶段中都包含多个残差块。这些残差块基本上遵循同样的结构：每个残差块都由两个卷积层和一个跨层连接组成。其中，第一个卷积层的输出会作为第二个卷积层的输入，而第二个卷积层的输出则会与跨层连接的输出相加得到最终的残差块输出。
+
+具体来说，ResNet-50 的第一个阶段包含一个 1×1 的卷积层、一个 3×3 的卷积层以及一个包含两个残差块的序列（每个块都由两个 3×3 的卷积层和一个跨层连接组成）。这个序列中的每个残差块都将其输入特征图 x 通过一个 3×3 的卷积层，转化成一个新的特征图 F(x)，然后将 F(x) 与原始输入 x 相加（即经过跨层连接后的输出），最终得到残差块的输出。
+
+接下来的三个阶段，与第一个阶段类似，都包含了多个残差块，但包含的块数会逐渐减少，分别包含3、4、6个残差块，其中第三个阶段还包含了一组比较特殊的残差块，这些残差块在跨层连接中具有下采样的功能，可以将输入的特征图 size 减半。这个过程可以将前面的特征图 size 从 56×56 降到 7×7。
+
+最后，在得到最后一个残差块的输出之后，我们将其连接到一个平均池化层，将其输出的特征图平均化成一个向量。在这个向量上，我们可以连接一个完全连接的（fully connected）层，作为对输出类别的预测。此外，在训练期间，我们需要与某些残差块之后添加一些 Dropout 层，以进一步提高模型的鲁棒性和泛化能力。
+
+综上所述，ResNet-50 的前向传播方法主要由多个残差块组成，每个残差块通过跨层连接将前一层的输入直接加到当前层的输出中，从而可以训练出比原始网络更深的模型。在训练和推断时，我们只需要对输入图像按照上述方法一步步进行前向传播，最终得到网络的输出。
 
 
 
