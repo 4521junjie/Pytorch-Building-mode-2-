@@ -1,6 +1,6 @@
 # Pytorch-Building-mode-2-
 
-# 📜Pytorch搭建模型模板的语法问题：
+# 😃Pytorch搭建模型模板的语法问题：
 代码如下:
 ``` python
 import torch
@@ -13,10 +13,23 @@ class xxxNet(nn.Module):
 	def forward(x):
           return x
  ```
-1、在给初始化函数定义函数名时，使用了双引号 “#”，导致代码运行时会出现语法错误，直接报错退出。正确的写法是使用下划线 “_” 划分函数名。 
 
-2、在初始化函数中应该首先调用父类的初始化函数，可以使用 super() 函数实现，否则可能会影响模型的初始化和训练。此外，forward() 方法应该接收至少一个参数，通常是输入的数据 x，同时需要进行必要的计算并返回计算结果。
+1、在第6行处，需要在__init__方法中调用父类的__init__方法,不然无法继承父类的属性和方法，这会影响到模型的初始化和训练。
 
+2、在forward方法的参数列表中加上self， 如果不加上self参数，forward方法就无法访问模型的实例属性和方法，导致模型无法运行。
+
+修改后的模板如下:
+``` python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+# 定义残差块
+class ResidualBlock(nn.Module):
+      def __init__(self, in_channels, out_channels, stride=1):
+     super(ResidualBlock, self).__init__()              # 调用父类的__init__方法
+     def forward(self, x):                              # 加上self参数
+		return X
+```
 
 
 # 🌏ResNet32模型
