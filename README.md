@@ -1,6 +1,6 @@
 # Pytorch-Building-mode-2-
 
-# 😃Pytorch搭建模型模板的语法问题：
+# 😃Pytorch搭建模型模板的语法问题
 代码如下:
 ``` python
 import torch
