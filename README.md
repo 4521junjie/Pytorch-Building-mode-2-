@@ -117,6 +117,8 @@ if __name__=='__main__':
     print(out.shape)                     # 打印输出张量的形状：[8 , num_classes ]
 ```
 
+![断点1]()
+
 ### 3、🙄Supplement
 https://zhuanlan.zhihu.com/p/79378841
 Provide a detailed explanation of the forward method in the Resnet model.
