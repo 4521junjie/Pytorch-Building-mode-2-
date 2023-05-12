@@ -116,11 +116,24 @@ if __name__=='__main__':
     out = model(t)                       # 调用模型的forward方法得到输出张量
     print(out.shape)                     # 打印输出张量的形状：[8 , num_classes ]
 ```
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/ef46ea13-d887-4c6f-9a97-e4d173398fa8)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/4413c615-4863-45b4-b550-4d5cb8399ad2)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/cc632446-0f2c-4b62-8060-f5496fdf28de)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/f734b717-d11d-4676-b4b0-74a875be78dd)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/8ddcc4f8-bced-439a-9619-ae4a634dd9a7)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/7099271f-b733-4edf-bba6-022d8785379c)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/6ba6e0d3-4ad0-4f58-a98c-d008da538b0c)
+![image](https://github.com/4521junjie/Pytorch-Building-mode-2-/assets/119326710/544a3fd4-4c96-41da-9aa5-3b075f47b478)
+![Uploading image.png…]()
 
-![断点1]()
+
+
+
+
 
 ### 3、🙄Supplement
 https://zhuanlan.zhihu.com/p/79378841
+
 Provide a detailed explanation of the forward method in the Resnet model.
 
 
